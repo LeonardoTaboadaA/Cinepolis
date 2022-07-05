@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{master.html}">
+<head>
+<meta charset="UTF-8">
+<title>Cinépolis</title>
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<meta content="" name="keywords">
+
+<meta content="" name="description">
+
+<style>
+.text {
+	color: #d6d7da;
+	font: 900 60px/1.0666 Montserrat, sans-serif;
+	text-decoration: inherit;
+}
+
+.textCartelera {
+	text-align: right;
+	color: black;
+	font: 20px/1.5 Lato, sans-serif;
+	font-weight: 800;
+	height: 0px;
+	left: 0;
+}
+
+#ultimasPeliculas:hover {
+	-webkit-transform: scale(1.03);
+	transform: scale(1.03);
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+	transition: all 0.3s ease;
+}
+</style>
+
+</head>
+
+
+<body>
+
+	<div layout:fragment="content">
+		<div>
+			<h2 class="text">Películas</h2>
+		</div>
+
+
+		<h4 class="textCartelera">En cartelera</h4>
+		<div class="row">
+			<div class="col-md-3 my-5" th:each="pelicula : ${ultimasPeliculas}"
+				th:object="${pelicula}">
+				<a th:href="@{/peliculas/{id}(id=*{id})}" class="card bg-light"
+					style="text-decoration: none;" id="ultimasPeliculas"> <img
+					th:src="@{/assets/{filename}(filename=*{rutaPortada})}"
+					th:alt="*{titulo}" class="card-img-top">
+					<div class="card-body">
+						<h2 class="card-title fs-6" th:text="*{titulo}"></h2>
+						<p th:text="*{#temporals.format(fechaEstreno, 'dd/MM/yyyy')}"
+							class="text-muted small"></p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
